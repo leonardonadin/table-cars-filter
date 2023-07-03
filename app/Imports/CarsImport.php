@@ -27,13 +27,29 @@ class CarsImport implements ToModel
             $price_row = $row[7] == 'R$' ? 8 : 7;
         } else {
             $table_price_row = 5;
-            $price_row = $row[6] == 'R$' ? 7 : 6;
+
+            if ($row[6] == 'R$' || $row[6] == null) {
+                $price_row = $row[7] == 'R$' ? 8 : 7;
+            } else {
+                $price_row = 6;
+            }
         }
 
         $place_row = $price_row + 1;
 
         $price = $this->convertToDecimal($row[$price_row]);
         $table_price = $this->convertToDecimal($row[$table_price_row]);
+
+        if ($price == 0 || $table_price == 0) {
+            dd(
+                'table_price_row and price_row are wrong',
+                $table_price_row,
+                $price_row,
+                $row[$table_price_row],
+                $row[$price_row],
+                $row
+            );
+        }
 
         try {
             $car = new Car([
@@ -57,6 +73,6 @@ class CarsImport implements ToModel
     }
 
     private function convertToDecimal($value) {
-        return str_replace(',', '.', str_replace('.', '', str_replace('R$', '', $value)));
+        return floatval(str_replace(' ', '', str_replace(',', '.', str_replace('.', '', str_replace('R$', '', $value)))));
     }
 }
