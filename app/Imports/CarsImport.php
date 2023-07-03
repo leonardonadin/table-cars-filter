@@ -22,23 +22,38 @@ class CarsImport implements ToModel
             return null;
         }
 
-        $table_price_row = $row[5] == 'R$' ? 6 : 5;
-        $price_row = $row[7] == 'R$' ? 8 : 7;
-        $place_row = 9;
+        if ($row[5] == 'R$') {
+            $table_price_row = 6;
+            $price_row = $row[7] == 'R$' ? 8 : 7;
+        } else {
+            $table_price_row = 5;
+            $price_row = $row[6] == 'R$' ? 7 : 6;
+        }
 
-        return new Car([
-            'plate'     => $row[0],
-            'model'    => $row[1],
-            'year'    => $row[2],
-            'km'    => $row[3],
-            'color'    => $row[4],
-            'price'    => $this->convertToDecimal($row[$price_row]),
-            'table_price'    => $this->convertToDecimal($row[$table_price_row]),
-            'place'    => $row[$place_row],
-            'origin' => 'Evento Itaú - ' . Carbon::now()->format('d/m/Y'),
-            'discount' => $this->convertToDecimal($row[$table_price_row]) - $this->convertToDecimal($row[$price_row]),
-            'discount_percent' => ($this->convertToDecimal($row[$table_price_row]) - $this->convertToDecimal($row[$price_row])) / $this->convertToDecimal($row[$table_price_row]) * 100,
-        ]);
+        $place_row = $price_row + 1;
+
+        $price = $this->convertToDecimal($row[$price_row]);
+        $table_price = $this->convertToDecimal($row[$table_price_row]);
+
+        try {
+            $car = new Car([
+                'plate'     => $row[0],
+                'model'    => $row[1],
+                'year'    => $row[2],
+                'km'    => $row[3],
+                'color'    => $row[4],
+                'price'    => $price,
+                'table_price' => $table_price,
+                'place'    => $row[$place_row],
+                'origin' => 'Evento Itaú - ' . Carbon::now()->format('d/m/Y'),
+                'discount' => $table_price - $price,
+                'discount_percent' => ($table_price - $price) / $table_price * 100,
+            ]);
+        } catch (\Exception $e) {
+            dd($row);
+        }
+
+        return $car;
     }
 
     private function convertToDecimal($value) {

@@ -91,114 +91,118 @@
                     </div>
                 </div>
             </div>
-            <table class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>Placa</th>
-                        <th>Modelo</th>
-                        <th>
-                            <a class="text-decoration-none text-dark"
-                                @if (request()->get('sort_direction') == 'asc' && request()->get('sort') == 'year')
-                                href="{{ route('cars', ['sort' => 'year', 'sort_direction' => 'desc']) }}">
-                                    Ano
-                                    <i class="bi bi-sort-numeric-up"></i>
-                            @else
-                                href="{{ route('cars', ['sort' => 'year', 'sort_direction' => 'asc']) }}">
-                                    Ano
-                                    <i class="bi bi-sort-numeric-down"></i>
-                            @endif
-                            </a>
-                        </th>
-                        <th>Cor</th>
-                        <th>
-                            <a class="text-decoration-none text-dark"
-                                @if (request()->get('sort_direction') == 'asc' && request()->get('sort') == 'km')
-                                href="{{ route('cars', ['sort' => 'km', 'sort_direction' => 'desc']) }}">
-                                    KM
-                                    <i class="bi bi-sort-numeric-up"></i>
-                            @else
-                                href="{{ route('cars', ['sort' => 'km', 'sort_direction' => 'asc']) }}">
-                                    KM
-                                    <i class="bi bi-sort-numeric-down"></i>
-                            @endif
-                            </a>
-                        </th>
-                        <th>KM/Ano</th>
-                        <th>
-                            <a class="text-decoration-none text-dark"
-                                @if (request()->get('sort_direction') == 'asc' && request()->get('sort') == 'table_price')
-                                href="{{ route('cars', ['sort' => 'table_price', 'sort_direction' => 'desc']) }}">
-                                    Fipe
-                                    <i class="bi bi-sort-numeric-up"></i>
-                            @else
-                                href="{{ route('cars', ['sort' => 'table_price', 'sort_direction' => 'asc']) }}">
-                                    Fipe
-                                    <i class="bi bi-sort-numeric-down"></i>
-                            @endif
-                            </a>
-                        </th>
-                        <th>
-                            <a class="text-decoration-none text-dark"
-                                @if (request()->get('sort_direction') == 'asc' && request()->get('sort') == 'price')
-                                href="{{ route('cars', ['sort' => 'price', 'sort_direction' => 'desc']) }}">
-                                    Preço
-                                    <i class="bi bi-sort-numeric-up"></i>
-                            @else
-                                href="{{ route('cars', ['sort' => 'price', 'sort_direction' => 'asc']) }}">
-                                    Preço
-                                    <i class="bi bi-sort-numeric-down"></i>
-                            @endif
-                            </a>
-                        </th>
-                        <th>Desconto (R$)</th>
-                        <th>Desconto (%)</th>
-                        <th>Local</th>
-                        <th>Origem</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <template x-for="car in cars">
-                        <tr x-show="canShow(car)">
-                            <td>
-                                <span x-text="car.plate"></span>
-                            </td>
-                            <td>
-                                <span x-text="car.model"></span>
-                            </td>
-                            <td>
-                                <span x-text="car.year"></span>
-                            </td>
-                            <td>
-                                <span x-text="car.color"></span>
-                            </td>
-                            <td>
-                                <span x-text="car.km"></span> KM
-                            </td>
-                            <td>
-                                <span x-text="car.km_by_year"></span>
-                            </td>
-                            <td>
-                                R$ <span x-text="car.table_price"></span>
-                            </td>
-                            <td>
-                                R$ <span x-text="car.price"></span>
-                            </td>
-                            <td>
-                                R$ <span x-text="car.discount"></span>
-                            </td>
-                            <td>
-                                <span x-text="car.discount_percent"></span>%
-                            </td>
-                            <td>
-                                <span x-text="car.place"></span>
-                            </td>
-                            <td>
-                                <span x-text="car.origin"></span>
-                            </td>
-                        </tr>
-                    </template>
-                </tbody>
-            </table>
+            <div class="row justify-content-center">
+                <div class="col-auto">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Placa</th>
+                                <th>Modelo</th>
+                                <th>
+                                    <a class="text-decoration-none text-dark"
+                                        @if (request()->get('sort_direction') == 'asc' && request()->get('sort') == 'year')
+                                        href="{{ route('home', ['sort' => 'year', 'sort_direction' => 'desc']) }}">
+                                            Ano
+                                            <i class="bi bi-sort-numeric-up"></i>
+                                    @else
+                                        href="{{ route('home', ['sort' => 'year', 'sort_direction' => 'asc']) }}">
+                                            Ano
+                                            <i class="bi bi-sort-numeric-down"></i>
+                                    @endif
+                                    </a>
+                                </th>
+                                <th>KM/Ano</th>
+                                <th>
+                                    <a class="text-decoration-none text-dark"
+                                        @if (request()->get('sort_direction') == 'asc' && request()->get('sort') == 'table_price')
+                                        href="{{ route('home', ['sort' => 'table_price', 'sort_direction' => 'desc']) }}">
+                                            Fipe
+                                            <i class="bi bi-sort-numeric-up"></i>
+                                    @else
+                                        href="{{ route('home', ['sort' => 'table_price', 'sort_direction' => 'asc']) }}">
+                                            Fipe
+                                            <i class="bi bi-sort-numeric-down"></i>
+                                    @endif
+                                    </a>
+                                </th>
+                                <th>
+                                    <a class="text-decoration-none text-dark"
+                                        @if (request()->get('sort_direction') == 'asc' && request()->get('sort') == 'price')
+                                        href="{{ route('home', ['sort' => 'price', 'sort_direction' => 'desc']) }}">
+                                            Preço
+                                            <i class="bi bi-sort-numeric-up"></i>
+                                    @else
+                                        href="{{ route('home', ['sort' => 'price', 'sort_direction' => 'asc']) }}">
+                                            Preço
+                                            <i class="bi bi-sort-numeric-down"></i>
+                                    @endif
+                                    </a>
+                                </th>
+                                <th>Desconto (R$)</th>
+                                <th>Desconto (%)</th>
+                                <th>
+                                    <a class="text-decoration-none text-dark"
+                                        @if (request()->get('sort_direction') == 'asc' && request()->get('sort') == 'km')
+                                        href="{{ route('home', ['sort' => 'km', 'sort_direction' => 'desc']) }}">
+                                            KM
+                                            <i class="bi bi-sort-numeric-up"></i>
+                                    @else
+                                        href="{{ route('home', ['sort' => 'km', 'sort_direction' => 'asc']) }}">
+                                            KM
+                                            <i class="bi bi-sort-numeric-down"></i>
+                                    @endif
+                                    </a>
+                                </th>
+                                <th>Cor</th>
+                                <th>Local</th>
+                                <th>Origem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template x-for="car in cars">
+                                <tr x-show="canShow(car)" :class="getStyleClass(car)">
+                                    <td>
+                                        <span x-text="car.plate"></span>
+                                    </td>
+                                    <td>
+                                        <span x-text="car.model"></span>
+                                    </td>
+                                    <td>
+                                        <span x-text="car.year"></span>
+                                    </td>
+                                    <td>
+                                        <span x-text="car.km_by_year"></span> Km
+                                    </td>
+                                    <td>
+                                        R$ <span x-text="car.table_price"></span>
+                                    </td>
+                                    <td>
+                                        R$ <span x-text="car.price"></span>
+                                    </td>
+                                    <td>
+                                        R$ <span x-text="car.discount"></span>
+                                    </td>
+                                    <td>
+                                        <span x-text="car.discount_percent"></span>%
+                                    </td>
+                                    <td>
+                                        <span x-text="car.km"></span> Km
+                                    </td>
+                                    <td>
+                                        <span x-text="car.color"></span>
+                                    </td>
+                                    <td>
+                                        <span x-text="car.place"></span>
+                                    </td>
+                                    <td>
+                                        <span x-text="car.origin"></span>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
         <script>
             function app() {
@@ -223,6 +227,27 @@
                             this.filterKm(car) &&
                             this.filterTablePrice(car) &&
                             this.filterPrice(car)
+                    },
+                    getStyleClass(car) {
+                        var classStyle = 'table-success';
+
+                        if (car.km_by_year) {
+                            // Convert 10.000 to 10000
+                            var km_by_year = parseInt(car.km_by_year.replace('.', ''));
+                            if (km_by_year > 10000 && km_by_year < 20000) {
+                                classStyle = 'table-info'
+                            } else if (km_by_year > 20000) {
+                                classStyle = 'table-danger'
+                            }
+
+                            if (car.discount < 5000) {
+                                classStyle = 'table-danger'
+                            }
+                        } else {
+                            classStyle = 'table-danger'
+                        }
+
+                        return classStyle;
                     },
                     filterPlate(car) {
                         if (!this.plate)

@@ -15,7 +15,7 @@ class HomeController extends Controller
         $sort = request()->get('sort', 'price');
         $sort_direction = request()->get('sort_direction', 'asc');
 
-        $cars = Car::orderBy($sort, $sort_direction)->get();
+        $cars = Car::orderBy('origin')->orderBy($sort, $sort_direction)->get();
 
         return view('home', compact('cars'));
     }
